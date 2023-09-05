@@ -6,6 +6,13 @@ import BookList from "./components/BookList";
 function App() {
   const [books, setBooks] = useState([]);
 
+  const deleteBookById = (id) => {
+    const newBooks = books.filter((book) => {
+      return book.id !== id;
+    });
+    setBooks(newBooks);
+  };
+
   const createBook = (title) => {
     const newBook = {
       id: Math.round(Math.random() * 9999),
@@ -14,9 +21,12 @@ function App() {
     setBooks([...books, newBook]);
   };
 
+  console.log(books);
+
   return (
     <div className="app">
-      <BookList books={books} />
+      <h1>Reading List</h1>
+      <BookList books={books} onDelete={deleteBookById} />
       <BookCreate onCreate={createBook} />
     </div>
   );
